@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Czy chcesz usunąć ?";
+}
+@model PhoneBookApp.Models.PersonModel
+<div class="container">
+    <div class="form-row">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h3 class="panel-title">For sure?</h3>
+            </div>
+            <div class="panel-body">
+                <h2>Do yo want to delete @Html.DisplayFor(x => x.FirstName) @Html.DisplayFor(x => x.LastName)?</h2>
+
+                @using (Html.BeginForm("Remove", "Person", FormMethod.Post, new { @style = "display: inline;" }))
+                {
+                    <button class="btn btn-danger btn-secondary col-md-6">Yes</button>
+                }
+                @using (Html.BeginForm("Index", "Person", FormMethod.Get, new { @style = "display: inline;" }))
+                {
+                    <button class="btn btn-success btn-primary  col-md-6">No</button>
+                }
+                </div>
+            </div>
+        </div>
+    </div>

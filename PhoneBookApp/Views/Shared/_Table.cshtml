@@ -1,0 +1,65 @@
+﻿@model List<PhoneBookApp.Models.PersonModel>
+<div class="row">
+    <div class="col-md-6">
+        <a href="@Url.Action("Add")" class="btn btn-success pull-left">Add</a>
+    </div>
+    <div class="col-md-6">
+        <div class=" btn-group pull-right" role="group">
+            @*<a class="btn btn-default disabled">how much on the page: </a>
+            <a class="btn btn-default" href="@Url.Action("Index",new { id = 1, filter = ViewBag.Filter, pagination = 3 })">3</a>
+            <a class="btn btn-default" href="@Url.Action("Index",new { id = 1, filter = ViewBag.Filter, pagination = 5 })">5</a>
+            <a class="btn btn-default" href="@Url.Action("Index",new { id = 1, filter = ViewBag.Filter, pagination = 10 })">10</a>*@
+        </div>
+    </div>
+</div>
+@if (ViewBag.Filter != "")
+{
+    <div class="col-lg-12">
+        <h4><b style="color:deeppink">Search Results: @ViewBag.Filter</b></h4>
+    </div>
+}
+<table class="table  table-striped">
+    <thead class="thead">
+        <tr>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Email</th>
+            <th scope="col">Edit / Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var row in Model)
+        {
+            <tr>
+                <td>@row.FirstName</td>
+                <td>@row.LastName</td>
+                <td>
+                    @row.Phone.Substring(0, 3)
+                    @row.Phone.Substring(3, 3)
+                    @row.Phone.Substring(6, 3)
+                </td>
+                <td>@row.Email</td>
+             
+                <td>
+                    <a href="@Url.Action("Edit", "Person", new { id = row.ID })" class="btn btn-sm btn-info">Edit</a>
+                    <a href="@Url.Action("Remove", "Person", new { id = row.ID })" class="btn btn-sm btn-danger">Remove</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<nav aria-label="Page navigation">
+    <ul class="pager">
+        @if (ViewBag.Id > 1)
+        {
+            <li class="previous"><a class="btn btn-default" href="@Url.Action("Index",new { id = ViewBag.Id - 1, filter = ViewBag.Filter, pagination = ViewBag.Pagination })"><span aria-hidden="true">&larr;</span> Wstecz</a></li>
+        }
+        @if ((ViewBag.Counter - (ViewBag.Id - 1) * ViewBag.Pagination) > ViewBag.Pagination)
+        {
+            <li class="next"><a class="btn btn-default" href="@Url.Action("Index",new { id = ViewBag.Id + 1, filter = ViewBag.Filter, pagination = ViewBag.Pagination })">Dalej <span aria-hidden="true">&rarr;</span></a></li>
+        }
+
+    </ul>
+</nav>
+
